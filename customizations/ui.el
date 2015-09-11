@@ -11,6 +11,12 @@
 (global-linum-mode)
 (setq linum-format "%d ")
 
+;; Show changes
+(global-git-gutter-mode t)
+
+;; Use git-gutter together with linum-mode
+(git-gutter:linum-setup)
+
 ;; You can uncomment this to remove the graphical toolbar at the top. After
 ;; awhile, you won't need the toolbar.
 ;; (when (fboundp 'tool-bar-mode)
