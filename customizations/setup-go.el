@@ -2,6 +2,7 @@
 ;; Go
 ;;;;
 
+(require 'flycheck)
 
 
 ;; Syntax check with goflymake
