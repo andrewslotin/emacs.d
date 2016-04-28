@@ -2,10 +2,7 @@
 ;; Go
 ;;;;
 
-(setq gopath "/Users/suddendef/Development/Go")
 
-;; Set GOPATH
-(setenv "GOPATH" gopath)
 
 ;; Syntax check with goflymake
 (eval-after-load "go-mode"
@@ -20,7 +17,7 @@
 (defun custom-go-mode-hook()
   ;; Run goimports on save
   (setq gofmt-command "goimports")
-  (add-to-list 'exec-path (concat gopath "/bin"))
+  (add-to-list 'exec-path (concat (getenv "GOPATH") "/bin"))
   (add-hook 'before-save-hook 'gofmt-before-save)
 
   ;; Jump to definition key binding
