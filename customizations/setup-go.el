@@ -4,10 +4,15 @@
 
 (require 'flycheck)
 
-
 ;; Syntax check with goflymake
 (eval-after-load "go-mode"
   '(progn
+     ;; Load go-guru
+     (if
+         (file-exists-p (concat (getenv "GOPATH") "/src/golang.org/x/tools/cmd/guru/go-guru.el"))
+         (load-file (concat (getenv "GOPATH") "/src/golang.org/x/tools/cmd/guru/go-guru.el"))
+         (warn "go-guru.el was not found. To install it run `go get golang.org/x/tools/cmd/guru`"))
+  
      (flycheck-define-checker go-gofmt
                                "A Go syntax and style checker using the gofmt utility."
                                :command ("goimports" "-e" source)
