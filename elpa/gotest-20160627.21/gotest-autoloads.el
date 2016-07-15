@@ -3,7 +3,7 @@
 ;;; Code:
 (add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads nil "gotest" "gotest.el" (22294 41215 0 0))
+;;;### (autoloads nil "gotest" "gotest.el" (22409 22580 0 0))
 ;;; Generated autoloads from gotest.el
 
 (autoload 'go-test-current-test "gotest" "\

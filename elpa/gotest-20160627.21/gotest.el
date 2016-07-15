@@ -2,7 +2,7 @@
 
 ;; Author: Nicolas Lamirault <nicolas.lamirault@gmail.com>
 ;; URL: https://github.com/nlamirault/gotest.el
-;; Package-Version: 20160414.125
+;; Package-Version: 20160627.21
 ;; Version: 0.12.0
 ;; Keywords: languages, go, tests
 
@@ -108,6 +108,12 @@ See https://getgb.io."
 
 (defvar go-test-last-command nil
   "Command used last for repeating.")
+
+(defvar go-test-additional-arguments-function nil
+  "Function that can be used to programatically add arguments.
+
+The function will receive the suite and test name as
+arguments in that order.")
 
 
 (defconst go-test-font-lock-keywords
@@ -272,8 +278,17 @@ For example, if the current buffer is `foo.go', the buffer for
                           (format "%s%s%s"
                                   go-test-regexp-prefix test-prefix
                                   go-test-regexp-suffix) nil t))
-        (list (match-string-no-properties 1) (match-string-no-properties 2))
+        (let ((suite-match (match-string-no-properties 1))
+              (test-match (match-string-no-properties 2)))
+          (list
+           (go-test--get-suite-name-from-match-string suite-match) test-match))
       (error "Unable to find a test"))))
+
+(defun go-test--get-suite-name-from-match-string (the-match-string)
+  (if (> (length the-match-string) 0)
+      (progn (string-match "([^()]*?\\*\\([^()]*?\\))" the-match-string)
+             (s-trim (match-string-no-properties 1 the-match-string)))
+    ""))
 
 (defun go-test--get-current-test ()
   "Return the current test name."
@@ -437,14 +452,15 @@ For example, if the current buffer is `foo.go', the buffer for
 (defun go-test-current-test ()
   "Launch go test on the current test."
   (interactive)
-  (let* ((test-info (go-test--get-current-test-info))
-         (test-name (cadr test-info))
-         (test-suite (car test-info))
-         (test-flag (if (> (length test-suite) 0) "-m " "-run ")))
-    (when test-name
-      (if (go-test--is-gb-project)
-          (go-test--gb-start (s-concat "-test.v=true -test.run=" test-name "\\$"))
-        (go-test--go-test (s-concat test-flag test-name "\\$"))))))
+  (cl-destructuring-bind (test-suite test-name) (go-test--get-current-test-info)
+    (let ((test-flag (if (> (length test-suite) 0) "-m " "-run "))
+          (additional-arguments (if go-test-additional-arguments-function
+                                    (funcall go-test-additional-arguments-function
+                                             test-suite test-name) "")))
+      (when test-name
+        (if (go-test--is-gb-project)
+            (go-test--gb-start (s-concat "-test.v=true -test.run=" test-name "\\$"))
+          (go-test--go-test (s-concat test-flag test-name additional-arguments "\\$")))))))
 
 
 ;;;###autoload
