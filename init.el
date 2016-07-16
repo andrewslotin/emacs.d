@@ -103,6 +103,15 @@
 ;; a .yml file
 (add-to-list 'load-path "~/.emacs.d/vendor")
 
+;; *scratch* buffer customizations
+(setq initial-major-mode 'markdown-mode)
+(setq initial-scratch-message "\
+<!--
+This buffer is for notes you don't want to save.
+If you want to create a file, visit that file with C-x C-f,
+then enter the text in that file's own buffer.
+-->")
+
 ;;;;
 ;; Customization
 ;;;;
