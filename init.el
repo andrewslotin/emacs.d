@@ -150,6 +150,8 @@ then enter the text in that file's own buffer.
 ;; Langauage-specific
 (load "setup-js.el")
 (load "setup-go.el")
+(load "setup-rust.el")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
