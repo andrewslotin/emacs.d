@@ -164,7 +164,7 @@ then enter the text in that file's own buffer.
     ("9e54a6ac0051987b4296e9276eecc5dfb67fdcd620191ee553f40a9b6d943e78" "7f1263c969f04a8e58f9441f4ba4d7fb1302243355cb9faecb55aec878a06ee9" "cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "52588047a0fe3727e3cd8a90e76d7f078c9bd62c0b246324e557dfa5112e0d0c" default)))
  '(package-selected-packages
    (quote
-    (toml-mode rust-mode rustfmt flycheck-protobuf protobuf-mode ess paradox company-sourcekit swift-mode markdown-mode org go-rename git-gutter yaml-mode ag zenburn-theme company-go flycheck go-mode dash-at-point tagedit smex rainbow-delimiters projectile magit ido-ubiquitous exec-path-from-shell)))
+    (go-guru toml-mode rust-mode rustfmt flycheck-protobuf protobuf-mode ess paradox company-sourcekit swift-mode markdown-mode org go-rename git-gutter yaml-mode ag zenburn-theme company-go flycheck go-mode dash-at-point tagedit smex rainbow-delimiters projectile magit ido-ubiquitous exec-path-from-shell)))
  '(paradox-github-token t))
 
 (add-hook 'after-init-hook 'global-flycheck-mode)
