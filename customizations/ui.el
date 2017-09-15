@@ -74,3 +74,7 @@
 
 ;; no bell
 (setq ring-bell-function 'ignore)
+
+;; display time in mode line
+(setq-default display-time-format "-- %a, %b %d %H:%M --")
+(display-time-mode 1)
