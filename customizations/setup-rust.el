@@ -2,8 +2,7 @@
 ;; Rust
 ;;;;
 
-(defun custom-rust-mode-hook()
-  (add-hook 'before-save-hook 'rustfmt-format-buffer)
-)
+(setq rust-format-on-save t)
 
-(add-hook 'rust-mode-hook 'custom-rust-mode-hook)
+(with-eval-after-load 'rust-mode
+  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
