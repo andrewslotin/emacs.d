@@ -2,35 +2,39 @@
 ;; Go
 ;;;;
 
-(require 'flycheck)
+(use-package flycheck
+  :ensure t)
 
-;; Syntax check with goflymake
-(eval-after-load "go-mode"
-  '(progn
-     ;; load go-guru
-     (load "go-guru.el")
-     
-     (flycheck-define-checker go-gofmt
-                               "A Go syntax and style checker using the gofmt utility."
-                               :command ("goimports" "-e" source)
-                               :error-patterns ((error line-start (file-name) ":" line ":" column ": " (message) line-end))
-                               :modes 'go-mode)
-     (add-to-list 'flycheck-checkers 'go-gofmt)))
+(use-package go-guru
+  :defer)
 
-(defun custom-go-mode-hook()
-  ;; Run goimports on save
-  (setq gofmt-command "goimports")
-  (add-to-list 'exec-path (concat (getenv "GOPATH") "/bin"))
-  (add-hook 'before-save-hook 'gofmt-before-save)
+(use-package lsp-mode
+  :ensure t
+  :commands (lsp lsp-deferred)
+  :config (progn
+            (setq lsp-enable-snippet nil)
+            (setq lsp-prefer-flymake nil)))
 
-  ;; Jump to definition key binding
-  (local-set-key (kbd "M-.") 'godef-jump-other-window)
+(use-package company
+  :ensure t
+  :config (progn
+            (setq company-idle-delay 0)
+            (setq company-tooltip-align-annotations t)))
 
-  ;; Autocompletion
-  (set (make-local-variable 'company-backends) '(company-go))
-  (company-mode)
-)
+(use-package company-lsp
+  :ensure t
+  :commands company-lsp)
 
-(setq lsp-enable-snippet nil)
-(add-hook 'go-mode-hook 'custom-go-mode-hook)
-(add-hook 'go-mode-hook #'lsp)
+(use-package go-mode
+  :ensure t
+  :init (add-to-list 'exec-path (concat (getenv "GOPATH") "/bin"))
+  :config (progn
+            (setq gofmt-command "goimports"))
+  :bind (
+         ("M-." . lsp-find-definition)
+        )
+  :hook ((go-mode . lsp-deferred)
+         (before-save . lsp-organize-imports)
+         ))
+
+(provide 'gopls-config)
