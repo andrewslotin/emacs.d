@@ -31,4 +31,6 @@
   (company-mode)
 )
 
+(setq lsp-enable-snippet nil)
 (add-hook 'go-mode-hook 'custom-go-mode-hook)
+(add-hook 'go-mode-hook #'lsp)

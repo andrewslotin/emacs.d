@@ -16,3 +16,6 @@
 
 ;; Activate global-git-commit-mode
 (global-git-commit-mode)
+
+;; Disable showing staged changes on commit
+(remove-hook 'server-switch-hook 'magit-commit-diff)
