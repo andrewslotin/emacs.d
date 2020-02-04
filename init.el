@@ -152,6 +152,7 @@ then enter the text in that file's own buffer.
 (load "setup-go.el")
 (load "setup-rust.el")
 (load "setup-typescript.el")
+(load "setup-ruby.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -165,7 +166,7 @@ then enter the text in that file's own buffer.
     ("9e54a6ac0051987b4296e9276eecc5dfb67fdcd620191ee553f40a9b6d943e78" "7f1263c969f04a8e58f9441f4ba4d7fb1302243355cb9faecb55aec878a06ee9" "cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "52588047a0fe3727e3cd8a90e76d7f078c9bd62c0b246324e557dfa5112e0d0c" default)))
  '(package-selected-packages
    (quote
-    (company-lsp lsp-mode lsp-ui flycheck-rust tss go-guru toml-mode flycheck-protobuf protobuf-mode ess paradox company-sourcekit markdown-mode org go-rename yaml-mode ag company-go flycheck go-mode dash-at-point tagedit smex magit ido-ubiquitous exec-path-from-shell)))
+    (robe enh-ruby-mode company-lsp lsp-mode lsp-ui flycheck-rust tss go-guru toml-mode flycheck-protobuf protobuf-mode ess paradox company-sourcekit markdown-mode org go-rename yaml-mode ag company-go flycheck go-mode dash-at-point tagedit smex magit ido-ubiquitous exec-path-from-shell rainbow-delimiters projectile)))
  '(paradox-github-token t))
 
 (add-hook 'after-init-hook 'global-flycheck-mode)
